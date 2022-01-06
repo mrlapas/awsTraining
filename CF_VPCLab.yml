@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'Solution for exercise in cloudformation lab - 2 November 2020'
+Description: 'CF template for creating a custom VPC for AWS training - 6 January 2022'
 
 Resources:
   testVPC:
