@@ -1,0 +1,2 @@
+https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html
+https://aws.amazon.com/quickstart/architecture/linux-bastion/
