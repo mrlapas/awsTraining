@@ -1,0 +1,153 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CF template for creating a custom VPC for AWS training - 6 January 2022
+
+Parameters:
+  vpcName:
+    Description: Enter unique VPC name by adding your name after testVPCxxx
+    Type: String
+  igwName:
+    Description: Enter unique IGW name by adding your name after testIGWxxx
+    Type: String
+  pbsub1Name:
+    Description: Enter unique public subnet name by adding your name after PublicSubnet1-xxx
+    Type: String
+  pbsub2Name:
+    Description: Enter unique public subnet name by adding your name after PublicSubnet2-xxx
+    Type: String
+  pvsub1Name:
+    Description: Enter unique private subnet name by adding your name after PrivateSubnet1-xxx
+    Type: String
+  pvsub2Name:
+    Description: Enter unique private subnet name by adding your name after PrivateSubnet2-xxx
+    Type: String
+  pubRtableName:
+    Description: Enter unique public route table name by adding your name after publicRouteTable-xxx
+    Type: String
+  priRtableName:
+    Description: Enter unique private route table name by adding your name after privateRouteTable-xxx
+    Type: String
+  sshSgName:
+    Description: Enter uniqe SG name by adding your name after sshSG-xxx
+    Type: String
+  az1Name:
+    Description: enter AZ zone a of this region
+    Type: String
+  az2Name:
+    Description: enter AZ zone b of this region
+    Type: String
+  
+
+Resources:
+  testVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: !Ref vpcName
+  InetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Ref igwName
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref testVPC
+      InternetGatewayId: !Ref InetGateway
+  publicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref az1Name
+      VpcId: !Ref testVPC
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Ref pbsub1Name
+  publicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref az2Name
+      VpcId: !Ref testVPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Ref pbsub2Name
+  privateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref az1Name
+      VpcId: !Ref testVPC
+      CidrBlock: 10.0.2.0/24
+      Tags:
+        - Key: Name
+          Value: !Ref pvsub1Name
+  privateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref az2Name
+      VpcId: !Ref testVPC
+      CidrBlock: 10.0.3.0/24
+      Tags:
+        - Key: Name
+          Value: !Ref pvsub2Name
+  publicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref testVPC
+      Tags:
+        - Key: Name
+          Value: !Ref pubRtableName
+  InternetRoute:
+    Type: AWS::EC2::Route
+    DependsOn: InetGateway
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InetGateway
+      RouteTableId: !Ref publicRouteTable
+  privateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref testVPC
+      Tags:
+        - Key: Name
+          Value: !Ref priRtableName
+  publicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref publicRouteTable
+      SubnetId: !Ref publicSubnet1
+  publicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref publicRouteTable
+      SubnetId: !Ref publicSubnet2
+  privateSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref privateRouteTable
+      SubnetId: !Ref privateSubnet1
+  privateSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref privateRouteTable
+      SubnetId: !Ref privateSubnet2
+  sshSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH
+      VpcId: !Ref testVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: !Ref sshSgName
