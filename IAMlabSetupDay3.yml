@@ -1,0 +1,124 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create IAM Group, Policy and User for IAM Lab
+
+Resources:
+  nForce1:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce1
+  nForce2:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce2
+  nForce3:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce3
+  nForce4:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce4
+  nForce5:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce5
+  nForce6:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce6
+  nForce7:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce7
+  nForce8:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce8
+  nForce9:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce9
+  nForce10:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce10
+  nForce11:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce11
+  nForce12:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce12
+  nForce13:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce13
+  nForce14:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce14
+  nForce15:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce15
+  nForce16:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce16
+  nForce17:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce17
+  nForce18:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce18
+  nForce19:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce19
+  nForce20:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: P@ssw0rd
+      UserName: nForce20     
