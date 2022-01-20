@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'Basic EC2 create for Lambda Lab - AWS Training 21 Jan 2022'
+
+Resources:
+
+  ServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: 'ami-0356b1cd4aa0ee970' //use AMI id of Amazon Linux 2 in your region
+      InstanceType: 't2.micro'
+      Tags:
+        - Key: 'Name'
+          Value:  'lambdaTest-xxx'
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 8
+      SecurityGroups: [!Ref 'ServerSecurityGroup']
